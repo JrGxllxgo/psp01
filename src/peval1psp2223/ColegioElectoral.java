@@ -1,5 +1,11 @@
 package peval1psp2223;
 
+/**
+ * @author Jose Ramon Gallego Velez
+ * @version 1.0.
+ * @info Class that we have as a pipe
+ */
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -8,6 +14,11 @@ import static java.lang.Thread.sleep;
 public class ColegioElectoral {
 
     Recuento rec = new Recuento(this);
+
+    /**
+     * Class that set colors to the texts
+     */
+    ColorTools color = new ColorTools();
 
     /**
      * ArrayList queue is to get into this the voters that can vote have a sequence
@@ -50,11 +61,11 @@ public class ColegioElectoral {
      */
     public void checkDni(String name, int dni, Votante vot) {
         if (Arrays.asList(census).contains(dni)) {
-            System.out.println(name + " puede votar");
+            System.out.println(color.greenTxt() + name + " puede votar" + color.defaultTxt());
             vot.setCanVote(true);
             queueUp(name);
         } else {
-            System.out.println(name + " no puede votar");
+            System.out.println(color.redTxt() + name + " no puede votar" + color.defaultTxt());
             vot.setCanVote(false);
         }
     }
@@ -74,14 +85,14 @@ public class ColegioElectoral {
                 throw new RuntimeException(e);
             }
         }
-        System.out.println("***** Comienza a votar " + name + " *****");
+        System.out.println(color.blueTxt() + "***** Comienza a votar " + name + " *****" + color.defaultTxt());
         try {
             sleep((int) (Math.random() * 2000 + 1000)); //time that the voter take to vote
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         countVotes++;
-        System.out.println("***** Termina de votar " + name + " *****");
+        System.out.println(color.cyanTxt() + "***** Termina de votar " + name + " *****" + color.defaultTxt());
         getQueue().remove(0);
         notifyAll();
     }
