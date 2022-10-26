@@ -1,5 +1,7 @@
 package peval1psp2223;
 
+import java.awt.*;
+
 /**
  * @author Jose Ramon Gallego Velez
  * @version 1.0.
@@ -7,11 +9,15 @@ package peval1psp2223;
  */
 
 public class Recuento extends Thread {
-
     /**
      * Use to use some methos of ColegioElectoral class
      */
     ColegioElectoral myCollege;
+
+    /**
+     * Class that set colors to the texts
+     */
+    ColorTools color = new ColorTools();
 
     /**
      * Boolean show is used to say if the loop should continue
@@ -22,6 +28,8 @@ public class Recuento extends Thread {
      * Boolean counting tp say if it continues or not
      */
     private boolean counting;
+
+    private int lastVoteCount = 0;
 
     /**
      * Class constructor
@@ -44,10 +52,12 @@ public class Recuento extends Thread {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("Van " + myCollege.getCountVotes() + " votos");
+            System.out.println(color.yellowTxt() + "Han habido " + (myCollege.getCountVotes() - lastVoteCount) + " votos" + color.defaultTxt());
+            lastVoteCount = myCollege.getCountVotes();
             setCounting(false);
 
             if ((myCollege.getCountVotes() == myCollege.getCensus().length)) { //conditional to stop when the count votes is as the number of teh census
+                System.out.println(color.purpleTxt() + "Han habido para el referendum " + myCollege.getCountVotes() + " votos" + color.defaultTxt());
                 show = false;
             }
         }
