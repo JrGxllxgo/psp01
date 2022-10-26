@@ -1,37 +1,72 @@
 package peval1psp2223;
 
-public class Recuento extends Thread{
+/**
+ * @author Jose Ramon Gallego Velez
+ * @version 1.0.
+ * @info Class where every 10 seconds we print the count of votes
+ */
 
+public class Recuento extends Thread {
+
+    /**
+     * Use to use some methos of ColegioElectoral class
+     */
     ColegioElectoral myCollege;
 
+    /**
+     * Boolean show is used to say if the loop should continue
+     */
     private boolean show = true;
-    private boolean counting = true;
-    Recuento(ColegioElectoral myCollege){
+
+    /**
+     * Boolean counting tp say if it continues or not
+     */
+    private boolean counting;
+
+    /**
+     * Class constructor
+     *
+     * @param myCollege
+     */
+    Recuento(ColegioElectoral myCollege) {
         this.myCollege = myCollege;
     }
 
+    /**
+     * Run method of the thread
+     */
     @Override
     public void run() {
-        while(show){
+        while (show) { //loop where we show votes and sleep the thread to show it every 10 seconds
             try {
                 setCounting(true);
                 sleep(10000);
-                setCounting(false);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             System.out.println("Van " + myCollege.getCountVotes() + " votos");
+            setCounting(false);
 
-            if ( (myCollege.getCountVotes() == myCollege.getCenso().length)){
+            if ((myCollege.getCountVotes() == myCollege.getCensus().length)) { //conditional to stop when the count votes is as the number of teh census
                 show = false;
             }
         }
     }
 
+    /**
+     * Method to get the value of counting
+     *
+     * @return counnting
+     */
     public boolean isCounting() {
         return counting;
     }
 
+    /**
+     * Methos where we set the value of counting
+     *
+     * @param counting
+     */
     public void setCounting(boolean counting) {
         this.counting = counting;
     }
