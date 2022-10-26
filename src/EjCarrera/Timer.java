@@ -3,7 +3,6 @@ package EjCarrera;
 public class Timer extends Thread{
 
     Pista pista;
-    private int numAtletas = 8;
 
     Timer(Pista pista){
         this.pista = pista;

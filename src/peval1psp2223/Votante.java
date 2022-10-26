@@ -6,6 +6,8 @@ public class Votante extends Thread{
     private String name;
     private int dni;
 
+    private boolean canVote = false;
+
     Votante(ColegioElectoral myCollege, String name, int i){
         this.myCollege = myCollege;
         this.name = name;
@@ -16,6 +18,19 @@ public class Votante extends Thread{
     @Override
     public void run() {
         System.out.println(this.getName() + " ha entrado al colegio electoral.");
-        myCollege.checkDni(name, this.dni);
+        myCollege.checkDni(name, this.dni, this);
+        if(canVote){
+            myCollege.vote(name, this);
+        }
+
+        System.out.println(this.getName() + " ha salido del colegio electoral.");
+    }
+
+    public boolean getCanVote() {
+        return canVote;
+    }
+
+    public void setCanVote(boolean canVote) {
+        this.canVote = canVote;
     }
 }
