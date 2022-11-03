@@ -1,16 +1,15 @@
 package sockets;
 
 import java.net.*;
-import java.sql.SQLOutput;
 
 public class E1TestInetAdress {
 
     public static void main(String[] args) {
         InetAddress dir = null;
         System.out.println("================");
-        System.out.println("SALIDA PARA LOCALHOST:" );
+        System.out.println("SALIDA PARA LOCALHOST:");
 
-        try{
+        try {
             //LOCALHOST
             dir = InetAddress.getByName("localhost");
             pruebaMetodos(dir);
@@ -18,7 +17,7 @@ public class E1TestInetAdress {
             //URL
             System.out.println("============");
             System.out.println("SALIDA PARA UNA URL: ");
-            dir = InetAddress.getByName("www.google.com");
+            dir = InetAddress.getByName("www.cbalhaurindelatorre.es");
             pruebaMetodos(dir);
 
             //Mostrar todas las direcciones de una URL mediante un arrayde tipo InetAdress
@@ -38,7 +37,7 @@ public class E1TestInetAdress {
     private static void pruebaMetodos(InetAddress dir) {
         System.out.println("Metodo getByName(): " + dir);
         InetAddress dir2;
-        try{
+        try {
             dir2 = InetAddress.getLocalHost();
             System.out.println("Metodo getLocalHost(): " + dir2);
         } catch (UnknownHostException e) {
