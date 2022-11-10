@@ -1,4 +1,4 @@
-package sockets;
+package websDara;
 
 /**
  * Programa que lee la pagina de as y sustituye la palabra Mbappé por mcguire y lo escribe en un archivo .txt
@@ -17,7 +17,6 @@ public class EjDuplicarWeb {
             in = new BufferedReader(new InputStreamReader(inputStream));
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
-                //System.out.println(inputLine);
                 String line = inputLine;
                 if(inputLine.contains("Mbappé")){
                     line = inputLine.replace("Mbappé","McGuire");
