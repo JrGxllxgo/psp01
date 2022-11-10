@@ -1,4 +1,4 @@
-package socketBasico;
+package socketTCIP;
 
 import java.net.*;
 import java.io.*;
@@ -13,6 +13,7 @@ public class Cliente {
     DataInputStream input;
     String msgReceived;
     boolean chat = true;
+
     public static void main(String[] args) throws IOException {
         Cliente client = new Cliente();
         client.initClient();
@@ -22,7 +23,7 @@ public class Cliente {
     public void initClient() throws IOException {
         cliente = new Socket("Localhost", PORT);
 
-        do{
+        do {
             System.out.println("Write message...");
             Scanner sc = new Scanner(System.in);
             message = sc.nextLine();
@@ -33,13 +34,13 @@ public class Cliente {
             input = new DataInputStream(cliente.getInputStream());
             msgReceived = input.readUTF();
 
-            if(msgReceived.equals("N")){
+            if (msgReceived.equals("N")) {
                 System.out.println("Se ha cerrado la conversación");
                 chat = false;
-            }else{
-                System.out.println("\tMessage: " +  msgReceived);
+            } else {
+                System.out.println("\tMessage: " + msgReceived);
             }
-        }while (chat);
+        } while (chat);
 
         output.close();
         input.close();

@@ -1,4 +1,4 @@
-package socketBasico;
+package socketTCIP;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -33,8 +33,7 @@ public class Servidor {
         input = new DataInputStream(socket.getInputStream());
         System.out.println("Client connected");
 
-
-        do{
+        do {
             msgReceived = input.readUTF();
             // saca en pantalla el mensaje enviado por el cliente
             System.out.println("\tMessage: " + msgReceived);
@@ -46,11 +45,10 @@ public class Servidor {
             output = new DataOutputStream(socket.getOutputStream());
             output.writeUTF(msgSend);
             System.out.println("Message send");
-            if(msgSend.equals("N")){
+            if (msgSend.equals("N")) {
                 chat = false;
             }
-        }while(chat);
-
+        } while (chat);
 
         output.close();
         input.close();
