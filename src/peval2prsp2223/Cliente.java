@@ -1,17 +1,44 @@
 package peval2prsp2223;
 
+/**
+ * @author José Ramón Gallego Vélez
+ * @date 21/11/2022
+ * @version 0
+ * @info On this class we start the client
+ */
+
 import java.net.*;
 import java.io.*;
 import java.util.*;
 
 public class Cliente {
+    /**
+     * Integer with the port we´ll use
+     */
     final int PORT = 5000;
+    /**
+     * Socket for the client
+     */
     Socket cliente;
+    /**
+     * Dataoutputstream for receive data
+     */
     DataOutputStream output;
+    /**
+     * DataInput stream for send data
+     */
     DataInputStream input;
+    /**
+     * String with the text received
+     */
     String msgReceived;
+    /**
+     * String with the text to send
+     */
     String msgSend;
-
+    /**
+     * Scanner to write data with the keyb
+     */
     private static Scanner keybReader = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
@@ -20,6 +47,12 @@ public class Cliente {
 
         cliente.initClient();
     }
+
+    /**
+     * Method to strart the client and the conversartion
+     *
+     * @throws IOException
+     */
     public void initClient() throws IOException {
         cliente = new Socket("localhost", PORT);
 
@@ -44,14 +77,25 @@ public class Cliente {
 
         System.out.println(input.readUTF());
 
-        msgSend="";
-        while (!msgSend.equals("salir")) {
-            msgReceived = input.readUTF();
-            System.out.println("Servidor: " + msgReceived);
+        boolean chat = true;
+        msgSend = "";
+        msgReceived = "";
+        while (chat) {
 
-            System.out.print("Escribe el mensaje: ");
-            msgSend = keybReader.nextLine();
-            output.writeUTF(msgSend);
+            if (msgReceived.equals("completo")) {
+                System.out.println("Servidor completo");
+                chat = false;
+            } else if (msgSend.equals("salir")) {
+                System.out.println("Servidor: " + msgReceived);
+                chat = false;
+            } else {
+                msgReceived = input.readUTF();
+                System.out.println("Servidor: " + msgReceived);
+
+                System.out.print("Escribe el mensaje: ");
+                msgSend = keybReader.nextLine();
+                output.writeUTF(msgSend);
+            }
         }
 
         System.out.println(input.readUTF());
