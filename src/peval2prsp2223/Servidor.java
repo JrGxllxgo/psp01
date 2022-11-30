@@ -12,17 +12,20 @@ import java.util.Scanner;
 public class Servidor {
 
     final int PORT = 5000;
-
+    /**
+     * Socket for the server
+     */
     private ServerSocket servidor;
+    /**
+     * DataInput stream for send data
+     */
     private DataInputStream input;
-    private String msgReceived;
-    private String msgSend;
+    /**
+     * Dataoutputstream for receive data
+     */
     private DataOutputStream output;
-    int CONEXIONESMAX = 3;
 
     int conexiones = 0;
-    boolean chat = true;
-    private static Scanner keybReader = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
         Servidor myServer = new Servidor();
@@ -79,16 +82,8 @@ public class Servidor {
             }
 
             conexiones++;
-            Thread cliHilo = new Thread(new HiloServidor(mySocket, dept, userName));
+            Thread cliHilo = new Thread(new HiloServidor(mySocket, dept, userName,conexiones));
             cliHilo.start();
-        } while (conexiones < CONEXIONESMAX);
-
-        output.close();
-        input.close();
-        System.out.println("Fin de la conversación");
-    }
-
-    public int getConexiones() {
-        return conexiones;
+        } while (true);
     }
 }
